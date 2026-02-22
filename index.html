@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <title>CoderNotes</title>
+    <title>Coder'sNotes</title>
 </head>
 <body>
     <header>
@@ -16,7 +16,7 @@
                 <a href="#main"><img src="accets/📝Notes.svg" alt="logo"></a>
                 <div class="count">
                     <img src="accets/notes.svg" alt="">
-                    <span>Всего заметок: <span class="number">3</span></span>
+                    <span>Всего заметок: <span class="number">0</span></span>
                 </div>
             </div>  
         </div>
@@ -34,19 +34,41 @@
                     </div>
                     <div class="buttons">
                         <span class="color">Выбрите цвет заметки</span>
-                        <ul>
-                            <li class="yellow"><div></div></li>
-                            <li class="green"><div></div></li>
-                            <li class="blue"><div></div></li>
-                            <li class="red"><div></div></li>
-                            <li class="purple"><div></div></li>
+                        <ul class="colors">
+                            <li class="selected"><div class="yellow"></div></li>
+                            <li><div class="green"></div></li>
+                            <li><div class="blue"></div></li>
+                            <li><div class="red"></div></li>
+                            <li><div class="purple"></div></li>
                         </ul>
                         <button type="submit">Добавить заметку</button>
                     </div>
                 </form>
+                <div class="liked">
+                    <input type="checkbox" name="liked" id="liked">
+                    <label for="liked">Показать только избранные заметки</label>
+                </div>
                 <div class="notes"></div>
-                <div class="delete-wrapper"></div>
-                <div class="message"></div>
+                <div class="text">
+                    <p>У вас нет еще ни одной заметки</p>
+                    <p>Заполните поля выше и создайте свою первую заметку!</p>`
+                </div>
+                <div class="message">
+                    <img src="accets/Done.svg" alt="Done" class="mess-img"/>
+                    <p class="mess-text"></p>
+                </div>
+                <div class="delete-wrapper">
+                    <!-- <div class="del-header">
+                        <h3>Удаление заметки</h3>
+                        <button class="canc"><img src="accets/cancel.svg" alt="cancel"></button>
+                    </div>
+                    <p class="del-text"></p>
+                    <div class="del-but">
+                        <button class="cancel">Отменить</button>
+                        <button class="delete">Удалить</button> -->
+                    </div>
+                </div>
+                
             </div>
         </div>
     </section>

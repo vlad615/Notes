@@ -7,6 +7,8 @@
 body{
     font-family: "Montserrat", sans-serif;
     background: #fafafc;
+    font-weight: 400;
+    font-size: 14px;
 }
 
 ul{
@@ -15,6 +17,16 @@ ul{
 
 a{
     text-decoration: none;
+}
+
+button{
+    border: none;
+    border-radius: 10px;
+    padding: 5px 25px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    cursor: pointer;
 }
 
 .container{
@@ -42,13 +54,19 @@ header{
     gap: 10px;
 }
 
+.main-wrapper{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
 form{
     display: flex;
     justify-content: space-between;
     padding: 25px;
     border-radius: 4px;
     box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
-    margin-top: 25px;
+    margin: 25px 0;
     background-color: white;
 }
 
@@ -70,28 +88,157 @@ ul li{
     border-radius: 50px;
 }
 
+ul li.selected{
+    border: solid 1px #7DE1F3;
+}
+
 ul li div{
     width: 24px;
     height: 24px;
     border-radius: 50%;
 }
 
-.yellow div{
+.yellow{
     background-color: #F3DB7D;
 }
 
-.green div{
+.green{
     background-color: #C2F37D;
 }
 
-.blue div{
+.blue{
     background-color: #7DE1F3;
 }
 
-.red div{
+.red{
     background-color: #F37D7D;
 }
 
-.purple div{
+.purple{
     background-color: #E77DF3;
+}
+
+.liked{
+    display: none;
+    gap: 10px;
+    font-size: 12px;
+    line-height: 2;
+    margin-bottom: 10px;   
+    align-self: flex-end; 
+}
+
+.notes{
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.text{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.note{
+    max-width: 368px;
+    min-width: 234px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(11, 12, 13, 0.08), 0 8px 16px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+    background: #fff;
+}
+
+.head{
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.like, .delete{
+    cursor: pointer;
+}
+
+.title{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #292515;
+}
+
+.content{
+    padding:10px;
+    line-height: 1.7;
+    color: #000;
+}
+
+.message{
+    font-weight: 500;
+    line-height: 1.7;
+    position: fixed;
+    align-self: flex-end;
+    display: none;
+    bottom: 50px;
+    gap: 10px;
+    padding: 10px 25px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #47b27d;
+    box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+}
+
+.delete-wrapper{
+    position: fixed;
+    z-index: 1;
+    top: 50%;        
+    left: 50%;       
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+    padding: 20px 25px 35px;
+    max-width: 415px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.del-header, .del-but{
+    display: flex;
+    justify-content: space-between;
+}
+
+.del-header{
+    border-bottom: solid 1px #e2e2e2;
+    padding: 0 0 10px;
+    margin-bottom: 25px;
+}
+
+.del-text{
+    margin-bottom: 25px;
+}
+
+.cancel{
+    color:#457cdc;
+    background-color: #fff;
+}
+
+.canc{
+    padding: 0;
+    background-color: #fff;
+}
+
+.cancel:hover{
+    color: #fff;
+    background: #457cdc;
+}
+
+.delete{
+    color:#f23d5b;
+    background-color: #fff;
+}
+
+.delete:hover{
+    color: #fff;
+    background: #457cdc;
 }
