@@ -17,6 +17,7 @@ const model = {
     onlyLike: false,
 
     addNote(title, content){
+
         this.notes = [{id: new Date().getTime(),
                     title: title,
                     content: content,
@@ -27,21 +28,25 @@ const model = {
     },
 
     changeColor(newColor){
+
         this.sel_color = newColor;
         view.renderColor(newColor);
     },
 
     like(itemId){
+
         this.notes = this.notes.map(i => i.id==itemId?{...i, liked: !i.liked}:i)
         view.renderNotes(this.notes, this.onlyLike)
     },
 
     delItem(id){
+
         this.notes = this.notes.filter(i => i.id != id)
         view.renderNotes(this.notes, this.onlyLike)
     },
 
     showLiked(state){
+
         this.onlyLike = state
         view.renderNotes(this.notes, this.onlyLike)
     }
@@ -49,14 +54,18 @@ const model = {
 
 const view = {
     init(){
+        console.log("init");
+
         this.renderNotes(model.notes)
         const newNote = document.querySelector("form")
         const colorList = document.querySelector(".colors")
         const likeDel = document.querySelector(".notes")
         const onlyLike = document.querySelector("#liked")
         const del = document.querySelector(".delete")
+        const cancel = document.querySelectorAll(".cancel")
 
         newNote.addEventListener("submit", (ev)=>{
+            console.log("newNote");
             ev.preventDefault();
             const title = ev.target.title.value;
             const content = ev.target.content.value;
@@ -65,27 +74,33 @@ const view = {
         })
 
         colorList.addEventListener("click", (ev) => {
+            console.log("colorList");
+            const el = ev.target.classList.value;
             controler.changeColor(ev.target.classList.value)
         })
 
         likeDel.addEventListener("click", (ev) => {
-            // const title = ev.target.
-            controler.likeDel(ev.target.classList.value, ev.target.parentElement.id, )
+            console.log("likeDel", ev.target.classList.value);
+            const el = ev.target.classList.value;
+            if (el === "like" || el === "delete"){
+                controler.likeDel(ev.target.classList.value, ev.target.parentElement.id, )
+            }
         })
 
         onlyLike.addEventListener("click", (ev)=>{
+            console.log("onliLike");
             controler.showLiked(ev.target.checked)
         })
 
         del.addEventListener("click", (ev)=>{
-            console.log("delete");
+            console.log(ev.target);
             
             controler.delItem(ev.target.id)
         })
     },
 
     renderNotes(list, onlyLike = false){
-        console.log(list);
+        console.log("renderNotes",list);
         const notesWrapper = document.querySelector(".notes")
         
         if (!list.length){
@@ -96,6 +111,7 @@ const view = {
             return 0
         } else {
                 document.querySelector(".text").setAttribute("style", "display: none")
+                document.querySelector(".delete-wrapper").style.display = "none"
                 document.querySelector(".delete-wrapper").setAttribute("style", "display: none")
                 document.querySelector(".liked").setAttribute("style", "display: flex")
             }
@@ -199,7 +215,7 @@ const controler = {
         if (toDo==="like"){
             model.like(id)
         } else {
-            model.delItem(id)
+            view.delItem(id)
         }
     }, 
 

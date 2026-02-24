@@ -219,26 +219,26 @@ ul li div{
 }
 
 .cancel{
+    cursor: pointer;
+}
+
+button.cancel{
     color:#457cdc;
+    border: solid 1px #457cdc;
     background-color: #fff;
 }
 
-.canc{
-    padding: 0;
-    background-color: #fff;
-}
-
-.cancel:hover{
+button.cancel:hover{
     color: #fff;
     background: #457cdc;
 }
 
-.delete{
+.delete-btn{
     color:#f23d5b;
     background-color: #fff;
 }
 
-.delete:hover{
+.delete-btn:hover{
     color: #fff;
     background: #457cdc;
 }
