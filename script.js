@@ -2,15 +2,15 @@
 
 const model = {
     notes: [
-        {id: 1, title: "Flexbox", content: "Loremasdlfjasldjflsjdflkajsdfa;dslkfjas;df\nalsdjfa;j\na;sdnfajsdjfalsdfjjasldaf",
-        liked: true, color: "yellow"
-        },
-        {id: 2, title: "JS", content: "Loremasdlfjasldjflsjdflkajsdfa;dslkfjas;df\nalsdjfa;j\na;sdnfajsdjfalsdfjjasldaf",
-        liked: false, color: "green"
-        },
-        {id: 3, title: "CSS", content: "Loremasdlfjasldjflsjdflkajsdfa;dslkfjas;df\nalsdjfa;j\na;sdnfajsdjfalsdfjjasldaf",
-        liked: false, color: "blue"
-        },
+        // {id: 1, title: "Flexbox", content: "Loremasdlfjasldjflsjdflkajsdfa;dslkfjas;df\nalsdjfa;j\na;sdnfajsdjfalsdfjjasldaf",
+        // liked: true, color: "yellow"
+        // },
+        // {id: 2, title: "JS", content: "Loremasdlfjasldjflsjdflkajsdfa;dslkfjas;df\nalsdjfa;j\na;sdnfajsdjfalsdfjjasldaf",
+        // liked: false, color: "green"
+        // },
+        // {id: 3, title: "CSS", content: "Loremasdlfjasldjflsjdflkajsdfa;dslkfjas;df\nalsdjfa;j\na;sdnfajsdjfalsdfjjasldaf",
+        // liked: false, color: "blue"
+        // },
     ],
 
     sel_color: "yellow",
@@ -39,6 +39,7 @@ const model = {
     delItem(id){
         this.notes = this.notes.filter(i => i.id != id)
         view.renderNotes(this.notes, this.onlyLike)
+        view.delItem(NaN, true)
     },
 
     showLiked(state){
@@ -49,7 +50,6 @@ const model = {
 
 const view = {
     init(){
-
         this.renderNotes(model.notes)
         const newNote = document.querySelector("form")
         const colorList = document.querySelector(".colors")
@@ -57,6 +57,11 @@ const view = {
         const onlyLike = document.querySelector("#liked")
         const del = document.querySelector(".delete-btn")
         const cancel = document.querySelectorAll(".cancel")
+
+        cancel.forEach((i)=>{i.addEventListener("click", ()=>{
+            view.delItem(NaN, true)
+        })})
+        
 
         newNote.addEventListener("submit", (ev)=>{
             ev.preventDefault();
@@ -85,6 +90,8 @@ const view = {
         del.addEventListener("click", (ev)=>{
             controler.delItem(ev.target.id)
         })
+
+        
     },
 
     renderNotes(list, onlyLike = false){
@@ -119,7 +126,7 @@ const view = {
                     </div>
                 </div>
                 <div class="content">
-                    <p>${element.content}</p>
+                    <p class="text-cont">${element.content}</p>
                 </div>
             </div>`
             } else if (!onlyLike){
@@ -134,14 +141,14 @@ const view = {
                     </div>
                 </div>
                 <div class="content">
-                    <p>${element.content}</p>
+                    <p class="text-cont">${element.content}</p>
                 </div>
             </div>`
             }   
         }
 
         document.querySelector(".number").textContent = list.length
-        // document.querySelector("form").reset()
+        document.querySelector("form").reset()
         notesWrapper.innerHTML = elements
     },
 
@@ -176,7 +183,11 @@ const view = {
         }, 0);
         },
     
-    delItem(id, ){
+    delItem(id, cancel=false){
+        if (cancel){
+            document.querySelector(".delete-wrapper").style.display = "none"
+            return
+        }
         document.querySelector(".del-text").textContent = `Вы уверены что хотите удалить заметку?`
         document.querySelector(".delete-btn").id = id
         document.querySelector(".delete-wrapper").style.display = "flex"
