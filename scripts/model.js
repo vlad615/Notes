@@ -1,3 +1,4 @@
+import {view} from "./view.js"
 const model = {
     notes: [
         // {id: 1, title: "Flexbox", content: "Loremasdlfjasldjflsjdflkajsdfa;dslkfjas;df\nalsdjfa;j\na;sdnfajsdjfalsdfjjasldaf",
@@ -46,8 +47,4 @@ const model = {
     }
 }
 
-function init() {
-    view.init()
-}
-
-export {init};
+export {model};

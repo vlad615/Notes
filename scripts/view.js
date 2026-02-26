@@ -1,3 +1,6 @@
+import { controler } from "./controler.js"
+import { model } from "./model.js"
+
 const view = {
     init(){
         this.renderNotes(model.notes)
@@ -70,9 +73,9 @@ const view = {
                 <div class="head ${element.color} id="1">
                     <h2 class="title">${element.title}</h2>
                     <div class="butWrapper" id=${element.id}>
-                        <img ${element.liked? `src="accets/heart active.svg" alt="liked" class="like"` :
-                             `src="accets/heart inactive.svg" alt="unlike" class="like"`}>
-                        <img src="accets/trash.svg" alt="delete" class="delete"> 
+                        <img ${element.liked? `src="../accets/icons/heartactive.svg" alt="liked" class="like"` :
+                             `src="../accets/icons/heartinactive.svg" alt="unlike" class="like"`}>
+                        <img src="../accets/icons/trash.svg" alt="delete" class="delete"> 
                     </div>
                 </div>
                 <div class="content">
@@ -85,9 +88,9 @@ const view = {
                 <div class="head ${element.color} id="1">
                     <h2 class="title">${element.title}</h2>
                     <div class="butWrapper" id=${element.id}>
-                        <img ${element.liked? `src="accets/icons/heart active.svg" alt="liked" class="like"` :
-                             `src="accets/icons/heart inactive.svg" alt="unlike" class="like"`}>
-                        <img src="accets/icons/trash.svg" alt="delete" class="delete"> 
+                        <img ${element.liked? `src="../accets/icons/heartactive.svg" alt="liked" class="like"` :
+                             `src="../accets/icons/heartinactive.svg" alt="unlike" class="like"`}>
+                        <img src="../accets/icons/trash.svg" alt="delete" class="delete"> 
                     </div>
                 </div>
                 <div class="content">
@@ -109,13 +112,13 @@ const view = {
 
     showMessage(message){
         const volumes = {
-            title: {img: "accets/icons/warning.svg", 
+            title: {img: "../accets/icons/warning.svg", 
                 message:"Наименование не может быть пустым или более 50 символов",
                 color: '#f23d5b'},
-            content: {img: "accets/icons/warning.svg", 
+            content: {img: "../accets/icons/warning.svg", 
                 message:"Описание не может быть более 500 символов",
                 color: '#f23d5b'},
-            added: {img: "accets/icons/Done.svg", 
+            added: {img: "../accets/icons/Done.svg", 
                 message:"Заметка добавлена!",
                 color: "#47b27d"},
         }
@@ -143,3 +146,10 @@ const view = {
         document.querySelector(".delete-wrapper").style.display = "flex"
     }
 }
+
+
+function init() {
+    view.init()
+}
+
+export {view, init};

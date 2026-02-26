@@ -1,8 +1,11 @@
+import {view} from "./view.js"
+import {model} from "./model.js"
+
 const controler = {
     addNote(title, content){
         if(title.length > 50 || title.trim() === ""){
             view.showMessage("title")
-        } else if(content.length > 500){
+        } else if(content.length > 250){
             view.showMessage("content")
         } else {
             model.addNote(title, content)
@@ -29,4 +32,6 @@ const controler = {
         model.delItem(id)
     }
 }
+
+export {controler};
 
