@@ -9,6 +9,7 @@ body{
     background: #fafafc;
     font-weight: 400;
     font-size: 14px;
+    min-width: 356px;
 }
 
 ul{
@@ -64,6 +65,7 @@ form{
     display: flex;
     justify-content: space-between;
     padding: 25px;
+    gap: 25px;
     border-radius: 4px;
     box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
     margin: 25px 0;
@@ -73,10 +75,42 @@ form{
 .inputs{
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+}
+
+label, .color{
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 2;
+    color: #919191;
+}
+
+input#title, textarea{
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 6px 12px;
+}
+
+input::placeholder, textarea::placeholder{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #919191;
+}
+
+#title{
+    max-width: 344px;
+}
+
+#content{
+    width: 100%;
+    height: 84px;
+    resize:unset;
 }
 
 ul{
     display: flex;
+    margin-bottom: 10px;
 }
 
 ul li{
@@ -118,6 +152,15 @@ ul li div{
     background-color: #E77DF3;
 }
 
+.add{
+    padding: 5px 25px 5px 50px;
+    color: #000;
+    background: #457cdc;
+    background-image: url("accets/plus.svg");
+    background-repeat: no-repeat;
+    background-position: 15px;
+}
+
 .liked{
     display: none;
     gap: 10px;
@@ -144,7 +187,8 @@ ul li div{
 
 .note{
     max-width: 368px;
-    min-width: 234px;
+    min-width: 214px;
+    flex-grow: 1;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(11, 12, 13, 0.08), 0 8px 16px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
     background: #fff;
@@ -168,7 +212,12 @@ ul li div{
     color: #292515;
 }
 
+.text-cont{
+    word-wrap: break-word;
+}
+
 .content{
+    max-width: 368px;
     padding:10px;
     line-height: 1.7;
     color: #000;
@@ -241,4 +290,15 @@ button.cancel:hover{
 .delete-btn:hover{
     color: #fff;
     background: #457cdc;
+}
+
+
+@media screen and (max-width:756px) {
+    .container{
+        padding: 0 15px;
+    }
+    form {
+        flex-direction: column;
+        padding: 10px;
+    }
 }
