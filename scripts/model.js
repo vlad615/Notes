@@ -20,7 +20,7 @@ const model = {
                     title: title,
                     content: content,
                     liked: false, color: this.sel_color} ,...this.notes]
-        
+        this.saveStorage()
         view.renderNotes(this.notes, this.onlyLike)
         view.showMessage("added")
     },
@@ -32,11 +32,13 @@ const model = {
 
     like(itemId){
         this.notes = this.notes.map(i => i.id==itemId?{...i, liked: !i.liked}:i)
+        this.saveStorage()
         view.renderNotes(this.notes, this.onlyLike)
     },
 
     delItem(id){
         this.notes = this.notes.filter(i => i.id != id)
+        this.saveStorage()
         view.renderNotes(this.notes, this.onlyLike)
         view.delItem(NaN, true)
     },
@@ -44,6 +46,15 @@ const model = {
     showLiked(state){
         this.onlyLike = state
         view.renderNotes(this.notes, this.onlyLike)
+    },
+
+    loadStorage(){
+        const storageNotes = JSON.parse(localStorage.getItem('notes'))
+        this.notes = storageNotes? storageNotes : []
+    }, 
+
+    saveStorage(){
+        localStorage.setItem('notes', JSON.stringify(this.notes))
     }
 }
 

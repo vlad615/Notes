@@ -156,8 +156,8 @@ const view = {
 }
 
 
-function init() {
+function initListeners() {
     view.init()
 }
 
-export {view, init};
+export {view, initListeners};
