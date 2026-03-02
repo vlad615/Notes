@@ -122,16 +122,24 @@ const view = {
                 message:"Заметка добавлена!",
                 color: "#47b27d"},
         }
-        const div = document.querySelector(".message")
-        const img = document.querySelector(".mess-img")
-        const text = document.querySelector(".mess-text")
+        const div = document.querySelector(".messages")
+        const mess = document.createElement("div")
+        mess.style.backgroundColor = volumes[message].color
+        const img = document.createElement("img")
+        img.src = volumes[message].img
+        const text = document.createElement("p")
+        text.textContent = volumes[message].message
+        mess.classList.add("message")
+        mess.append(img, text)
 
         setTimeout( () => {
-            img.setAttribute("src", volumes[message].img)
-            text.textContent = volumes[message].message
-            div.setAttribute("style", `display: flex; background-color:${volumes[message].color}`)
+            div.append(mess)
+            mess.classList.toggle("fade-out") 
+
             setTimeout( () => {
-                div.style.display = "none"
+
+                mess.remove()
+
             }, 3000);
         }, 0);
         },
