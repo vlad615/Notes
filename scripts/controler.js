@@ -2,34 +2,34 @@ import {view} from "./view.js"
 import {model} from "./model.js"
 
 const controler = {
-    addNote(title, content){
-        if(title.length > 50 || title.trim() === ""){
-            view.showMessage("title")
-        } else if(content.length > 250){
-            view.showMessage("content")
-        } else {
-            model.addNote(title, content)
-        }
-    },
+    addNote(name, desc, color, likedList){
+        const form = document.querySelector("form")
 
-    changeColor(newColor){
-        model.changeColor(newColor)
-    },
+        name = name.trim()
+        desc = desc.trim()
 
-    likeDel(toDo, id, ){
-        if (toDo==="like"){
-            model.like(id)
-        } else {
-            view.delItem(id)
+        if (!name.length || name.length>30){
+            view.showMessage("error", "Назвение не может быть пустым или больше 30 символов")
+            return 0
+        } else if (desc.length>500){
+            view.showMessage("error", "Описание не может быть больше 500 символов")
+            return 0
         }
+        
+        form.reset()
+        model.addNote(name, desc, color, likedList)
     }, 
 
-    showLiked(state){
-        model.showLiked(state)
+    showLiked(show){
+        model.showLiked(show)
+    }, 
+
+    like(idNote){
+        model.like(idNote)
     },
 
-    delItem(id){
-        model.delItem(id)
+    delItem(idNote, likedList){
+        model.del(idNote, likedList)
     }
 }
 

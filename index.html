@@ -1,60 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/main.css">
+
     <title>Coder'sNotes</title>
 </head>
+
 <body>
     <header>
         <div class="container">
             <div class="header-wrapper">
-                <a href="#main"><img src="accets/📝Notes.svg" alt="logo"></a>
-                <div class="count">
-                    <img src="accets/icons/notes.svg" alt="">
-                    <span>Всего заметок: <span class="number">0</span></span>
-                </div>
-            </div>  
+                <a href="/"><img src="./accets/📝Notes.svg" alt="logo"></a>
+                <span class="counter">Всего заметок: <small class="count"></small></span>
+            </div>
         </div>
     </header>
-    
-    <section id="main">
+
+    <section class="main">
         <div class="container">
             <div class="main-wrapper">
                 <form action="post">
                     <div class="inputs">
-                        <label for="title">Название заметки</label>
-                        <input id="title" type="text" placeholder="Напишите название новой заметки...">
-                        <label for="content">Описание новой заметки</label>
-                        <textarea id="content" placeholder="Напишите описание новой заметки..."></textarea>
+                        <label for="name">Название заметки</label>
+                        <input required type="text" id="name" placeholder="Напишите название новой заметки">
+                        <label for="description">Описание новой заметки</label>
+                        <textarea required id="description"
+                            placeholder="Напишите название новой заметки...."></textarea>
                     </div>
                     <div class="buttons">
-                        <span class="color">Выбрите цвет заметки</span>
-                        <ul class="colors">
-                            <li class="selected"><div class="yellow"></div></li>
-                            <li><div class="green"></div></li>
-                            <li><div class="blue"></div></li>
-                            <li><div class="red"></div></li>
-                            <li><div class="purple"></div></li>
-                        </ul>
-                        <button type="submit" class="add">Добавить заметку</button>
+                        <fieldset class="fieldset">
+                            <legend class="label">Выберите цвет заметки</legend>
+                            <ul class="radio-list">
+                                <li>
+                                    <input class="radio" type="radio" name="color" value="yellow" aria-label="yellow" />
+                                </li>
+                                <li>
+                                    <input class="radio" type="radio" name="color" value="red" aria-label="red" />
+                                </li>
+                                <li>
+                                    <input class="radio" type="radio" name="color" value="green" aria-label="green" />
+                                </li>
+                                <li>
+                                    <input class="radio" type="radio" name="color" value="blue" aria-label="blue" />
+                                </li>
+                                <li>
+                                    <input class="radio" type="radio" name="color" value="purple" aria-label="purple" />
+                                </li>
+                            </ul>
+                            <button type="submit" class="add-note">Добавить заметку</button>
+                        </fieldset>
                     </div>
                 </form>
-                <div class="liked">
+                <div class="liked-wrapper">
                     <input type="checkbox" name="liked" id="liked">
-                    <label for="liked">Показать только избранные заметки</label>
+                    <label for="liked">Показать только избранные</label>
                 </div>
-                <div class="notes"></div>
-                <div class="text">
-                    <p>У вас нет еще ни одной заметки</p>
-                    <p>Заполните поля выше и создайте свою первую заметку!</p>`
-                </div>
-                <div class="messages"></div>
-                
+                <div class="notes-wrapper"></div>
+                <div class="message-wrapper"></div>
                 <div class="delete-wrapper">
                     <div class="del-header">
                         <h3>Удаление заметки</h3>
@@ -66,15 +77,12 @@
                         <button class="delete-btn">Удалить</button>
                     </div>
                 </div>
-                
             </div>
         </div>
     </section>
 
-    <script type="module" src="scripts/script.js"></script>
-    <!-- <script type="module" src="scripts/model.js"></script>
-    <script type="module" src="scripts/view.js"></script>
-    <script type="module" src="scripts/controler.js"></script> -->
 
+    <script src="./scripts/script.js" type="module"></script>
 </body>
+
 </html>

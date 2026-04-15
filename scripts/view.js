@@ -1,155 +1,152 @@
 import { controler } from "./controler.js"
 import { model } from "./model.js"
 
+let color = "white"
+
 const view = {
-    init(){
+    init() {
         this.renderNotes(model.notes)
-        const newNote = document.querySelector("form")
-        const colorList = document.querySelector(".colors")
-        const likeDel = document.querySelector(".notes")
-        const onlyLike = document.querySelector("#liked")
+        this.renderCount(model.notes.length)
+
+        const nameNote = document.getElementById("name");
+        const descriptioNote = document.getElementById("description")
+        const addBtn = document.querySelector(".add-note")
+        const likedList = document.getElementById("liked")
+        const likeDel = document.querySelector(".notes-wrapper")
+        const colors = document.querySelectorAll(".radio")
         const del = document.querySelector(".delete-btn")
         const cancel = document.querySelectorAll(".cancel")
 
-        cancel.forEach((i)=>{i.addEventListener("click", ()=>{
-            view.delItem(NaN, true)
-        })})
-        
+        del.addEventListener("click", (ev) => {
+            controler.delItem(ev.target.id, likedList.checked)
+        })
 
-        newNote.addEventListener("submit", (ev)=>{
+        cancel.forEach((i) => {
+            i.addEventListener("click", () => {
+                view.delItem({cancel: true})
+            })
+        })
+
+        colors.forEach(i => {
+            i.addEventListener("click", () => {
+                if (color === i.value) {
+                    i.checked = false
+                    color = "white"
+                } else {
+                    color = i.value
+                    i.checked = true
+                }
+            })
+        })
+
+        addBtn.addEventListener("click", (ev) => {
             ev.preventDefault();
-            const title = ev.target.title.value;
-            const content = ev.target.content.value;
-            
-            controler.addNote(title, content)
+            controler.addNote(nameNote.value, descriptioNote.value, color, likedList.checked)
         })
 
-        colorList.addEventListener("click", (ev) => {
-            const el = ev.target.classList.value;
-            controler.changeColor(ev.target.classList.value)
-        })
-
-        likeDel.addEventListener("click", (ev) => {
-            const el = ev.target.classList.value;
-            if (el === "like" || el === "delete"){
-                controler.likeDel(ev.target.classList.value, ev.target.parentElement.id, )
-            }
-        })
-
-        onlyLike.addEventListener("click", (ev)=>{
+        likedList.addEventListener("change", (ev) => {
             controler.showLiked(ev.target.checked)
         })
 
-        del.addEventListener("click", (ev)=>{
-            controler.delItem(ev.target.id)
+        likeDel.addEventListener("click", (ev) => {
+            const action = ev.target.className;
+            const idNote = ev.target.closest("article").id
+
+            if (action === "like"){
+                controler.like(idNote)
+            } else if (action === "delete-note") {
+                const name = ev.target.parentElement.previousElementSibling.textContent
+                view.delItem({id:idNote, name:name} )
+            }
         })
 
-        
+
     },
 
-    renderNotes(list, onlyLike = false){
-        const notesWrapper = document.querySelector(".notes")
-        
-        if (!list.length){
-            document.querySelector(".text").setAttribute("style", "display: flex")
-            document.querySelector(".liked").setAttribute("style", "display: none")
-            notesWrapper.innerHTML = ''
-            document.querySelector(".number").textContent = list.length
+    renderCount(count) {
+        document.querySelector(".count").innerHTML = count
+    },
+
+    renderNotes(notesData) {
+        const container = document.querySelector(".notes-wrapper")
+
+        if (!notesData.length) {
+            document.querySelector(".liked-wrapper").setAttribute("style", "opacity: 0")
+            container.innerHTML = `<p class="no-notes">У вас нет еще ни одной заметки.
+Заполните поля выше и создайте свою первую заметку!</p>`
             return 0
         } else {
-                document.querySelector(".text").setAttribute("style", "display: none")
-                document.querySelector(".delete-wrapper").style.display = "none"
-                document.querySelector(".delete-wrapper").setAttribute("style", "display: none")
-                document.querySelector(".liked").setAttribute("style", "display: flex")
+            document.querySelector(".liked-wrapper").setAttribute("style", "opacity: 1")
+        }
+
+        let notes = ''
+        for (let i = 0; i < notesData.length; i++) {
+            const element = notesData[i];
+
+            notes += `
+            <article id="${element.id}">
+                <div class="note-header" style="background: ${element.color}">
+                    <h4>${element.title}</h4>
+                    <div class="like-del-wrap">
+                        <button class="like" 
+                        style=\"background-image: ${element.liked ?
+                    "url('/accets/icons/heartactive.svg')" :
+                    "url('/accets/icons/heartinactive.svg')"}\"></button>
+                        <button class="delete-note"></button>
+                    </div>
+                </div>
+                <p class="description">${element.description ?
+                    element.description
+                    : "Описание отсутствует"}</p>
+            </article>
+            `
+        }
+        container.innerHTML = notes
+    },
+
+    showMessage(type, text) {
+        const styles = {
+            error: {
+                img: "/accets/icons/warning.svg",
+                color: "#f23d5b;"
+            },
+            warrning: {
+                img: "/accets/icons/warning.svg",
+                color: "#f4ce34;"
+            },
+            done: {
+                img: "/accets/icons/Done.svg",
+                color: "#47b27d;"
             }
-
-        let elements = ``
-        
-        for (let i = 0; i < model.notes.length; i++) {
-            const element = model.notes[i];
-            if (onlyLike && element.liked){
-                elements += `
-            <div class="note">
-                <div class="head ${element.color} id="1">
-                    <h2 class="title">${element.title}</h2>
-                    <div class="butWrapper" id=${element.id}>
-                        <img ${element.liked? `src="../accets/icons/heartactive.svg" alt="liked" class="like"` :
-                             `src="../accets/icons/heartinactive.svg" alt="unlike" class="like"`}>
-                        <img src="../accets/icons/trash.svg" alt="delete" class="delete"> 
-                    </div>
-                </div>
-                <div class="content">
-                    <p class="text-cont">${element.content}</p>
-                </div>
-            </div>`
-            } else if (!onlyLike){
-                elements += `
-            <div class="note">
-                <div class="head ${element.color} id="1">
-                    <h2 class="title">${element.title}</h2>
-                    <div class="butWrapper" id=${element.id}>
-                        <img ${element.liked? `src="../accets/icons/heartactive.svg" alt="liked" class="like"` :
-                             `src="../accets/icons/heartinactive.svg" alt="unlike" class="like"`}>
-                        <img src="../accets/icons/trash.svg" alt="delete" class="delete"> 
-                    </div>
-                </div>
-                <div class="content">
-                    <p class="text-cont">${element.content}</p>
-                </div>
-            </div>`
-            }   
         }
 
-        document.querySelector(".number").textContent = list.length
-        document.querySelector("form").reset()
-        notesWrapper.innerHTML = elements
+        let container = document.createElement("div")
+        container.classList.add("message")
+        container.style.cssText = `background:${styles[type].color}`
+
+        container.innerHTML = `
+            <img src=${styles[type].img}>
+            <p class="message-text">${text}</p>
+        `
+
+        const wrapper = document.querySelector(".message-wrapper")
+
+        setTimeout(() => {
+            wrapper.append(container)
+            setTimeout(() => {
+                container.remove()
+            }, 3000)
+        }, 0)
+
     },
 
-    renderColor(color){
-        document.querySelector(".selected").classList.remove("selected")
-        document.querySelector(`.${color}`).parentElement.classList.add("selected");
-    },
-
-    showMessage(message){
-        const volumes = {
-            title: {img: "../accets/icons/warning.svg", 
-                message:"Наименование не может быть пустым или более 50 символов",
-                color: '#f23d5b'},
-            content: {img: "../accets/icons/warning.svg", 
-                message:"Описание не может быть более 500 символов",
-                color: '#f23d5b'},
-            added: {img: "../accets/icons/Done.svg", 
-                message:"Заметка добавлена!",
-                color: "#47b27d"},
-        }
-        const div = document.querySelector(".messages")
-        const mess = document.createElement("div")
-        mess.style.backgroundColor = volumes[message].color
-        const img = document.createElement("img")
-        img.src = volumes[message].img
-        const text = document.createElement("p")
-        text.textContent = volumes[message].message
-        mess.classList.add("message")
-        mess.append(img, text)
-
-        setTimeout( () => {
-            div.append(mess)
-            mess.classList.toggle("fade-out") 
-
-            setTimeout( () => {
-
-                mess.remove()
-
-            }, 3000);
-        }, 0);
-        },
-    
-    delItem(id, cancel=false){
-        if (cancel){
+    delItem({cancel= false, id=NaN, name=NaN}) {
+        if (cancel) {
             document.querySelector(".delete-wrapper").style.display = "none"
             return
         }
-        document.querySelector(".del-text").textContent = `Вы уверены что хотите удалить заметку?`
+        document.querySelector(".del-text").innerHTML = `Вы уверены что хотите удалить заметку
+<span class="q"><q>${name}</q>?</span>`
         document.querySelector(".delete-btn").id = id
         document.querySelector(".delete-wrapper").style.display = "flex"
     }
@@ -160,4 +157,4 @@ function initListeners() {
     view.init()
 }
 
-export {view, initListeners};
+export { view, initListeners };

@@ -1,0 +1,309 @@
+
+.main-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 100px;
+}
+
+.message-wrapper{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    bottom: 30px;
+    right: 10px;
+}
+
+.message{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    border-radius: 10px;
+    padding: 12px 24px;
+    box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+    background: #47b27d;
+}
+
+.message-text{
+    font-weight: 500;
+    color: #fff;
+}
+
+/*------------------- Inputs section ------------------------*/
+form {
+    display: flex;
+    gap: 25px;
+    margin-top: 25px;
+    border-radius: 4px;
+    padding: 24px;
+    box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+    background: #fff;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.label,
+label {
+    font-size: 12px;
+    color: #919191;
+}
+
+input[type="text"],
+textarea {
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 6px 12px;
+}
+
+input[type="text"] {
+    max-width: 345px;
+}
+
+textarea {
+    resize: none;
+    min-height: 84px;
+}
+
+input::placeholder,
+textarea::placeholder {
+    font-size: 14px;
+    color: #919191;
+}
+
+/*------------------- Buttons section ------------------------*/
+.buttons {
+    align-self: flex-end;
+}
+
+fieldset {
+    all: unset;
+}
+
+legend {
+    all: unset;
+    margin-bottom: 10px;
+}
+
+.radio-list {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 10px;
+}
+
+.radio {
+    appearance: none;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #F3DB7D;
+}
+
+.radio[value="red"] {
+    background-color: #F37D7D;
+}
+
+.radio[value="green"] {
+    background-color: #C2F37D;
+}
+
+.radio[value="blue"] {
+    background-color: #7DE1F3;
+}
+
+.radio[value="purple"] {
+    background-color: #E77DF3;
+}
+
+.radio:checked {
+    border-color: white;
+    box-shadow: 0 0 0 3px white, 0 0 0 4.5px #007BFF;
+}
+
+.add-note {
+    padding-left: 50px;
+    color: #fff;
+    background: #457cdc url('../accets/icons/plus.svg') no-repeat center left 15px;
+}
+
+/*--------------------------- Notes section --------------------------------*/
+.notes-wrapper {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.liked-wrapper {
+    margin: 25px 0;
+    align-self: flex-end;
+}
+
+.no-notes {
+    margin: 50px auto 0;
+    text-align: center;
+    white-space: pre-wrap;
+}
+
+/*------------------------- Note  --------------------------*/
+article {
+    max-width: 400px;
+    min-width: 265px;
+    box-shadow: 0 4px 8px 0 rgba(11, 12, 13, 0.08), 0 8px 16px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+    flex: 1 1 0%;
+    border-radius: 10px;
+}
+
+.note-header {
+    display: flex;
+    padding: 12px;
+    background: #c2f37d;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+}
+
+h4{
+    font-weight: 500;
+    font-size: 16px;
+    color: #292515;
+    word-break:break-word;
+}
+
+.like-del-wrap{
+    display: flex;
+    flex-direction: row;
+    gap: 10px
+}
+
+.like,
+.delete-note {
+    display: block;
+    background-color: transparent;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+}
+
+/* .like {
+    background-image: url("../accets/icons/heartinactive.svg");
+} */
+
+.delete-note {
+    background-image: url("../accets/icons/trash.svg");
+}
+
+.description{
+    color: black;
+    margin: 12px;
+    line-height: 1.7;
+    word-break:break-word;
+    white-space: pre-wrap;
+
+}
+
+/* ------------------------ Delete Note Confirm ------------------------------ */
+
+.delete-wrapper{
+    position: fixed;
+    z-index: 1;
+    top: 50%;        
+    left: 50%;       
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+    padding: 20px 25px 35px;
+    max-width: 415px;
+    width: 100%;
+    background-color: #f3f3f3a8;
+    border-radius: 10px;
+}
+
+.del-header, .del-but{
+    display: flex;
+    justify-content: space-between;
+}
+
+.del-header{
+    border-bottom: solid 1px #868686;
+    padding: 0 0 10px;
+    margin-bottom: 25px;
+}
+
+.del-text{
+    margin-bottom: 25px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.q{
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.cancel{
+    cursor: pointer;
+}
+
+button.cancel{
+    color:#457cdc;
+    border: solid 1px #457cdc;
+    background-color: transparent;
+}
+
+button.cancel:hover{
+    color: #fff;
+    background: #457cdc;
+}
+
+.delete-btn{
+    color:#f23d5b;
+    background-color: transparent;
+}
+
+.delete-btn:hover{
+    color: #fff;
+    background: #457cdc;
+}
+
+
+
+@media screen and (max-width: 768px){
+        form{
+        flex-direction: column;
+    }
+
+    .buttons{
+        align-self: flex-start;
+    }
+    
+    article{
+        max-width: unset;
+        min-width: 200px;
+    }
+
+}
+
+@media screen and (max-width: 576px){
+
+}
+
+@media screen and (min-width: 1150px) {
+    .message-wrapper{
+        right: 50%;
+        transform: translateX(560px);
+    }
+}

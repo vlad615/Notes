@@ -1,4 +1,14 @@
 import {view} from "./view.js"
+
+const colors = {
+    yellow: "#F3DB7D",
+    red: "#F37D7D",
+    green: "#C2F37D",
+    blue: "#7DE1F3",
+    purple: "#E77DF3",
+    white: "#fff"
+}
+
 const model = {
     notes: [
         // {id: 1, title: "Flexbox", content: "Loremasdlfjasldjflsjdflkajsdfa;dslkfjas;df\nalsdjfa;j\na;sdnfajsdjfalsdfjjasldaf",
@@ -10,42 +20,83 @@ const model = {
         // {id: 3, title: "CSS", content: "Loremasdlfjasldjflsjdflkajsdfa;dslkfjas;df\nalsdjfa;j\na;sdnfajsdjfalsdfjjasldaf",
         // liked: false, color: "blue"
         // },
+        // {id: 2, title: "JS", content: "Loremasdlfjasldjflsjdflkajsdfa;dslkfjas;df\nalsdjfa;j\na;sdnfajsdjfalsdfjjasldaf",
+        // liked: false, color: "green"
+        // },
     ],
 
-    sel_color: "yellow",
-    onlyLike: false,
+    addNote(name, desc, color, likedList){
+        
+        this.notes = [
+            {id: crypto.randomUUID(), 
+            title: name, 
+            description: desc,
+            color: colors[color], 
+            liked: false}, 
+            ...this.notes]
+        
+        if (!likedList){            
+            view.renderNotes(this.notes)
+        }
 
-    addNote(title, content){
-        this.notes = [{id: new Date().getTime(),
-                    title: title,
-                    content: content,
-                    liked: false, color: this.sel_color} ,...this.notes]
+        view.renderCount(this.notes.length)
+        view.showMessage("done", "Заметка добавлена!")
         this.saveStorage()
-        view.renderNotes(this.notes, this.onlyLike)
-        view.showMessage("added")
     },
 
-    changeColor(newColor){
-        this.sel_color = newColor;
-        view.renderColor(newColor);
+    showLiked(show){
+        let notesList = this.notes
+
+        if (show){
+            notesList = this.notes.filter(note=>note.liked)
+        }
+
+        if (this.notes && !notesList.length){
+            document.getElementById("liked").checked = false
+            view.showMessage("warrning", "У вас нет избраных заметок!")
+        } else{
+            view.renderNotes(notesList)
+        }
+        
     },
 
-    like(itemId){
-        this.notes = this.notes.map(i => i.id==itemId?{...i, liked: !i.liked}:i)
-        this.saveStorage()
-        view.renderNotes(this.notes, this.onlyLike)
+    like(idNote){
+        this.notes = this.notes.map(note=>{ return note.id===idNote
+                                                    ?{...note, liked:!note.liked}
+                                                    :note})
+        
+        const note = this.notes.find(note=>note.id===idNote)
+        if (note.liked){
+            view.showMessage("done", "Заметка добавлена в избраное!")
+            view.renderNotes(this.notes)
+
+        } else {
+            view.showMessage("done", "Заметка удалена из избраного!")
+            const filternotes = this.notes.filter(note=>note.liked)
+            console.log(filternotes);
+            
+            if (filternotes.length) {
+                view.renderNotes(filternotes)                
+            } else {
+                view.renderNotes(this.notes)                
+                document.getElementById("liked").checked = false
+            }
+        }
+        this.saveStorage(this.notes)
     },
 
-    delItem(id){
-        this.notes = this.notes.filter(i => i.id != id)
-        this.saveStorage()
-        view.renderNotes(this.notes, this.onlyLike)
-        view.delItem(NaN, true)
-    },
+    del(idNote, likedList){
+        this.notes = this.notes.filter(note=>note.id!==idNote)
 
-    showLiked(state){
-        this.onlyLike = state
-        view.renderNotes(this.notes, this.onlyLike)
+        if (likedList){
+            document.getElementById("liked").checked = false
+        }
+
+        view.showMessage("done", "Заметка удалена!")
+        view.delItem({cancel: true})
+        view.renderCount(this.notes.length)
+        view.renderNotes(this.notes)
+        this.saveStorage(this.notes)
     },
 
     loadStorage(){
