@@ -17,6 +17,9 @@ const view = {
         const del = document.querySelector(".delete-btn")
         const cancel = document.querySelectorAll(".cancel")
 
+        nameNote.addEventListener("click", ()=>view.delItem({cancel: true}))
+        descriptioNote.addEventListener("click", ()=>view.delItem({cancel: true}))
+
         del.addEventListener("click", (ev) => {
             controler.delItem(ev.target.id, likedList.checked)
         })
@@ -36,16 +39,19 @@ const view = {
                     color = i.value
                     i.checked = true
                 }
+                view.delItem({cancel: true})
             })
         })
 
         addBtn.addEventListener("click", (ev) => {
             ev.preventDefault();
             controler.addNote(nameNote.value, descriptioNote.value, color, likedList.checked)
+            view.delItem({cancel: true})
         })
 
         likedList.addEventListener("change", (ev) => {
             controler.showLiked(ev.target.checked)
+            view.delItem({cancel: true})
         })
 
         likeDel.addEventListener("click", (ev) => {
@@ -54,6 +60,7 @@ const view = {
 
             if (action === "like"){
                 controler.like(idNote)
+                view.delItem({cancel: true})
             } else if (action === "delete-note") {
                 const name = ev.target.parentElement.previousElementSibling.textContent
                 view.delItem({id:idNote, name:name} )

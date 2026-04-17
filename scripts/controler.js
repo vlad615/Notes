@@ -8,12 +8,12 @@ const controler = {
         name = name.trim()
         desc = desc.trim()
 
-        if (!name.length || name.length>30){
-            view.showMessage("error", "Назвение не может быть пустым или больше 30 символов")
-            return 0
+        if (!name.length || name.length>50){
+            view.showMessage("error", "Назвение не может быть пустым или больше 50 символов")
+            return
         } else if (desc.length>500){
             view.showMessage("error", "Описание не может быть больше 500 символов")
-            return 0
+            return
         }
         
         form.reset()
