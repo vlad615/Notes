@@ -79,6 +79,8 @@
 
 ## Screenshots
 
-![Начальный экран с выбраным зеленым цветом заметки](accets\Screenshots\start_screen.jpg)
-![Добавление заметки](accets\Screenshots\adding.jpg)
-![Подтверждение удаление заметки](accets\Screenshots\delete.jpg)
+![Начальный экран с выбранным зеленым цветом заметки](accets/Screenshots/start_screen.jpg)
+
+![Добавление заметки](accets/Screenshots/adding.jpg)
+
+![Подтверждение удаления заметки](accets/Screenshots/delete.jpg)
